@@ -30,11 +30,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">The MustDos</a>
+          <a class="navbar-brand" href="{{ URL::route('mustdos.index')}}">The MustDos</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li class="active">{{ link_to_route('mustdos.index', 'Home') }}</li>
             <li>{{ link_to_route('mustdos.create', 'New MustDos') }}</li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile <span class="caret"></span></a>

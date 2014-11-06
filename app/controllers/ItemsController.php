@@ -43,9 +43,9 @@ class ItemsController extends BaseController {
 	 * @return Response
 	 */
 	//public function show($id)
-	public function show(Item $item)
+	public function show(Mustdo $mustdo,Entry $entry, Item $item)
 	{
-		//
+		$this->layout->content = View::make('items.show', compact('item'));
 	}
 
 	/**

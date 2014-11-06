@@ -1,7 +1,8 @@
 <?php
 
 class Entry extends \Eloquent {
-	protected $fillable = [];
+	//protected $fillable = [];
+	protected $guarded = [];
 
 	public function mustdo()
 	{

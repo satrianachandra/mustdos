@@ -34,7 +34,30 @@ class MustdosController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+	 	$mustdo = Mustdo::create(array(
+                'name' => Input::get('mustdo_name')
+       	));
+		if ($mustdo->save()){
+			$entry = Entry::create(array(
+				'mustdo_id' => $mustdo->id,
+                'name' => Input::get('entry_name')
+       		));
+			if($entry->save()){
+				$item = Item::create(array(
+				'entry_id' => $entry->id,
+                'name' => Input::get('item_name'),
+                'description' => Input::get('item_description')
+       			));
+				if ($item->save()){
+					return Redirect::route('mustdos.index')->with('message', 'Mustdos created.');		
+				}else{
+					return Redirect::route('mustdos.create')->withInput()->withErrors($item->errors());
+				}
+			}else{
+				return Redirect::route('mustdos.create')->withInput()->withErrors($entry->errors());
+			}
+		}else
+			return Redirect::route('mustdos.create')->withInput()->withErrors( $mustdo->errors() );
 	}
 
 	/**
