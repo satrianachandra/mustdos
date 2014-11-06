@@ -43,16 +43,26 @@ class MustdosController extends BaseController {
                 'name' => Input::get('entry_name')
        		));
 			if($entry->save()){
-				$item = Item::create(array(
-				'entry_id' => $entry->id,
-                'name' => Input::get('item_name'),
-                'description' => Input::get('item_description')
-       			));
-				if ($item->save()){
-					return Redirect::route('mustdos.index')->with('message', 'Mustdos created.');		
-				}else{
-					return Redirect::route('mustdos.create')->withInput()->withErrors($item->errors());
+				
+				$item_name_array = Input::get('item_name');
+				$item_description_array = Input::get('item_description');
+
+				//Log::info(count($item_name_array));
+				for($i=0;$i<count($item_name_array);$i++){
+					$item = Item::create(array(
+					'entry_id' => $entry->id,
+	                'name' => $item_name_array[$i],
+	                'description' => $item_description_array[$i]
+	       			));
+	       			$item->save();
+					/*
+					if ($item->save()){
+						return Redirect::route('mustdos.index')->with('message', 'Mustdos created.');		
+					}else{
+						return Redirect::route('mustdos.create')->withInput()->withErrors($item->errors());
+					}*/
 				}
+				return Redirect::route('mustdos.index')->with('message', 'Mustdos created.');		
 			}else{
 				return Redirect::route('mustdos.create')->withInput()->withErrors($entry->errors());
 			}
