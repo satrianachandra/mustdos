@@ -15,3 +15,13 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+
+Route::model('mustdos', 'Mustdo');
+Route::model('entries', 'Entry');
+Route::model('items', 'Item');
+
+Route::resource('mustdos', 'MustdosController');
+Route::resource('mustdos.entries', 'EntriesController');
+Route::resource('mustdos.entries.items', 'ItemsController');
+
