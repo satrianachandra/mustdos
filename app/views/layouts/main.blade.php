@@ -13,14 +13,10 @@
 	<!-- CSS are placed here -->
     {{ HTML::style('css/bootstrap.css') }}
     {{ HTML::style('css/bootstrap-theme.css') }}
-	<style>
-		#wrapper {width:960px;max-width:100%;margin:auto}
-		.inline {display:inline}
-		.error {color:red}
-	</style>
+    {{ HTML::style('css/custom.css') }}
 </head>
 <body>
-	<div id='wrapper'>
+	
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -34,35 +30,42 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
+             @if (Auth::check())
             <li class="{{{ (Request::is('mustdos') ? 'active' : '') }}}"><a href="{{{ URL::to('mustdos') }}}">Home</a></li>
             <li class="{{{ (Request::is('mustdos/create') ? 'active' : '') }}}"><a href="{{{ URL::to('mustdos/create') }}}">New Mustdos</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#">Settings</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="{{{ URL::to('logout') }}}">Logout</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Info</li>
                 <li><a href="#">Help</a></li>
               </ul>
             </li>
+             @else
+              <li><a href="{{{ URL::to('login') }}}">Login</a></li>
+              <li><a href="{{{ URL::to('user/create') }}}">Sign Up</a></li>
+              @endif
+
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
 
+	  <div class="container">
+  		<div id="content">
+    			@if (Session::has('message'))
+    				<div class="flash alert">
+    					<p>{{ Session::get('message') }}</p>
+    				</div>
+    			@endif
+     
+    			@yield('main')
+  		</div>
+    </div>
 	
-		<div id="content">
-			@if (Session::has('message'))
-				<div class="flash alert">
-					<p>{{ Session::get('message') }}</p>
-				</div>
-			@endif
- 
-			@yield('main')
-		</div>
-	</div>
 
 	 <!-- Scripts are placed here -->
     {{ HTML::script('js/jquery-2.1.1.min.js') }}

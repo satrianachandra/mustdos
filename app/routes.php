@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('test');
-});
 
+Route::get('/', 'MustdosController@index');
+
+Route::get('login', array('as' => 'login', 'uses' => 'UsersController@login'));
+Route::post('/login', array('as' => 'login', 'uses' => 'UsersController@handleLogin'));
 
 Route::model('mustdos', 'Mustdo');
 Route::model('entries', 'Entry');
@@ -25,3 +25,6 @@ Route::resource('mustdos', 'MustdosController');
 Route::resource('mustdos.entries', 'EntriesController');
 Route::resource('mustdos.entries.items', 'ItemsController');
 
+Route::resource('user', 'UsersController'); 
+Route::get('/profile', array('as' => 'profile', 'uses' => 'UsersController@profile'));
+Route::get('/logout', array('as' => 'logout', 'uses' => 'UsersController@logout'));
