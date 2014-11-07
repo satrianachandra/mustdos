@@ -34,8 +34,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active">{{ link_to_route('mustdos.index', 'Home') }}</li>
-            <li>{{ link_to_route('mustdos.create', 'New MustDos') }}</li>
+            <li class="{{{ (Request::is('mustdos') ? 'active' : '') }}}"><a href="{{{ URL::to('mustdos') }}}">Home</a></li>
+            <li class="{{{ (Request::is('mustdos/create') ? 'active' : '') }}}"><a href="{{{ URL::to('mustdos/create') }}}">New Mustdos</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
