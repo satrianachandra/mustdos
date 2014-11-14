@@ -1,14 +1,32 @@
 @extends('layouts.main')
 
+{{ HTML::style('css/style.css') }}
+{{ HTML::style('css/demo.css') }}
+
 @section('main')
-	<h2>MustDos</h2>
-	@if ( !$mustdos->count() )
-		You have no MustDos
-	@else
-		<ul>
-			@foreach( $mustdos as $mustdo )
-				<li><a href="{{ route('mustdos.show', $mustdo->id) }}">{{ $mustdo->name }}</a></li>
-			@endforeach
-		</ul>
-	@endif
+	
+      
+
+        @foreach( $mustdos as $mustdo )
+        <div class='wrapper'>
+          <a   href="{{ route('mustdos.show', $mustdo->id) }}" title={{ $mustdo->name }}>
+            <img src={{asset($mustdo->imageurl)}} >
+            <div class='description'>
+              <p class='description_content'>{{ $mustdo->name }}<p>
+            </div>
+          </a> 
+        </div>
+        @endforeach
+
+      
+      
+
+
+
+     
+
+
+
+
 @stop
+

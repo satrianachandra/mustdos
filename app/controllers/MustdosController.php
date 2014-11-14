@@ -37,6 +37,28 @@ class MustdosController extends BaseController {
 	 	$mustdo = Mustdo::create(array(
                 'name' => Input::get('mustdo_name')
        	));
+
+       	if (Input::hasFile('image'))
+{
+
+	 	$extension = Input::file('image')->getClientOriginalExtension();
+	 	$directory = public_path().'/uploads/';
+	 	$fileName = sha1($mustdo->id).".{$extension}";
+
+	 	$upload_success = Input::file('image')->move($directory, $fileName);
+	 	if( $upload_success ) {
+            Session::flash('status_success', 'Successfully uploaded new Instapic');
+        } else {
+            Session::flash('status_error', 'An error occurred while uploading new Instapic - please try again.');
+        }
+        if( $upload_success ) {
+            //$image_url = URL::to('uploads/'.sha1($mustdo->id).'/'.$filename);
+            //$image_url = Input::file('image')->getRealPath();
+            $image_url ='/uploads/'.$fileName;
+            $mustdo->imageurl=$image_url;
+            //$mustdo
+        }
+}
 	 	$all_item_name_array = Input::get('item_name');
 		$all_item_description_array = Input::get('item_description');
 

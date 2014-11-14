@@ -6,6 +6,9 @@
 		{{ Form::text('mustdo_name') }}
 	</p>
 
+	{{ Form::label('cover', 'Cover:') }} {{ Form::file('image') }}
+
+	</br>
 	{{ Form::label('entries', 'Entries:') }}
 
 	<ul>
